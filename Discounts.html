@@ -15,7 +15,7 @@
             <div class="navbar">
                 <div class="logo">
                     <a href="index.html">
-                        <img src="   " alt="Logo">
+                        <img src="logo.png" alt="Logo">
                     </a>
                 </div>
                 <!-- Search Bar -->
@@ -199,7 +199,8 @@
                 }
     
                 cartItems.push(product);
-                updateCartDropdown(); // Update the dropdown with new product and numbering
+                saveCartToLocalStorage(); // Save to localStorage after adding
+                updateCartDropdown(); // Update dropdown UI
             }
     
             // Function to calculate the total price of the items in the cart
@@ -305,8 +306,7 @@
                 event.stopPropagation();
             });
     
-            // Call this function to ensure the event listeners are set on page load
-            document.addEventListener('DOMContentLoaded', attachCartIconEvents);
+
     
             // Close cart and menu when clicking outside of them
             document.addEventListener("click", function(event) {
@@ -323,7 +323,92 @@
                     dropDownMenu.style.display = "none";
                 }
             });
-    
+
+            //--------------------------------------------test---------------------------------------------------------------------
+
+        // Function to load the cart data from localStorage
+        function loadCartFromLocalStorage() {
+            const savedCart = localStorage.getItem("cartItems");
+            if (savedCart) {
+                cartItems = JSON.parse(savedCart);
+                updateCartDropdown(); // Load cart items in the dropdown
+            }
+        }
+
+        // Function to save the cart data to localStorage
+        function saveCartToLocalStorage() {
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+        }
+
+        // Function to add a product to the cart
+        function addToCart(product) {
+            console.log('Adding product to cart:', product);  // Debugging line
+
+            // Check if the product data exists and is correctly formatted
+            if (!product || !product.name || !product.price || !product.category) {
+                console.error('Invalid product data:', product);
+                return;
+            }
+
+            cartItems.push(product);
+            saveCartToLocalStorage(); // Save the updated cart to localStorage
+            updateCartDropdown(); // Update the dropdown with the new product and numbering
+        }
+
+        // Function to remove a product from the cart
+        function removeFromCart(index) {
+            // Remove the product at the specified index
+            cartItems.splice(index, 1);
+
+            saveCartToLocalStorage(); // Save the updated cart to localStorage
+            updateCartDropdown(); // Update the cart dropdown after removal
+        }
+
+        // Function to clear the cart
+        function clearCart() {
+            // Empty the cartItems array
+            cartItems = [];
+
+            saveCartToLocalStorage(); // Save the cleared cart to localStorage
+            updateCartDropdown(); // Update the cart dropdown
+        }
+
+        // Function to update the cart dropdown with items and total price
+        function updateCartDropdown() {
+            const cartItemsList = document.getElementById("cartItems");
+            cartItemsList.innerHTML = ""; // Clear the dropdown
+
+            // Loop through each item in the cart and add it to the dropdown with numbering and remove button
+            cartItems.forEach((item, index) => {
+                const li = document.createElement("li");
+
+                // Create product display with number, name, price, and the "X" button
+                li.innerHTML = `${index + 1}. ${item.name} - $${item.price} <span class="remove-item" onclick="removeFromCart(${index})">X</span>`;
+                cartItemsList.appendChild(li);
+            });
+
+            // If cart is empty, show a message
+            if (cartItems.length === 0) {
+                const li = document.createElement("li");
+                li.textContent = "Your cart is empty";
+                cartItemsList.appendChild(li);
+            }
+
+            // Update the total price next to the "Clear Cart" button
+            const totalPrice = calculateTotalPrice();
+            const totalPriceDisplay = document.getElementById("totalPrice");
+            totalPriceDisplay.textContent = `Total: $${totalPrice.toFixed(2)}`;
+        }
+
+        // Function to calculate the total price of items in the cart
+        function calculateTotalPrice() {
+            return cartItems.reduce((total, item) => total + item.price, 0);
+        }
+
+        // Load the cart from localStorage when the page loads
+        loadCartFromLocalStorage();
+
+        
         </script>
 
 </body>
