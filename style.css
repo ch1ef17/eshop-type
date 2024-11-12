@@ -383,6 +383,58 @@ nav {
     color: white;
 }
 
+/*------------------------------------------------------------------Categories------------------------------------------------------*/
+/* Centering the categories container and buttons */
+.categories {
+    display: flex;
+    justify-content: center; /* Centers items horizontally */
+    align-items: center;     /* Centers items vertically */
+    gap: 15px;               /* Space between buttons */
+    margin: 20px 0;          /* Optional: Adds vertical spacing around the buttons */
+}
+
+/* Optional: Styling for individual buttons */
+.categories button {
+    padding: 10px 20px;      /* Adds padding for better appearance */
+    font-size: 16px;         /* Adjust font size */
+    cursor: pointer;         /* Changes cursor on hover */
+    background-color: #f2f2f2; /* Light background for buttons */
+    border: 1px solid #ccc;  /* Adds a border to the button */
+    border-radius: 5px;      /* Optional: Rounds the button corners */
+}
+
+.categories button:hover {
+    background-color: #e0e0e0; /* Slightly darker background on hover */
+}
+
+.product-Cat { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));     /* 4 products per row (adjust as needed) */
+    gap: 20px; 
+    padding: 20px;
+    width: 100%; 
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;            /* Optional: light background for contrast */
+}
+
+
+.product-Cat .product {
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-Cat .product:hover {
+    transform: scale(1.02);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+/*------------------------------------------------------------------Mobile-----------------------------------------------------------*/
 @media (max-width: 750px) and (min-width: 360px){
 
     .container2 {
@@ -559,6 +611,46 @@ nav {
     .product {
         position: relative;
         width: 100%; /* Adjust product width */
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Centering the categories container and buttons */
+    .categories {
+        display: flex;
+        justify-content: center; /* Centers items horizontally */
+        align-items: center;     /* Centers items vertically */
+        gap: 5px;               /* Space between buttons */
+    }
+
+    /* Optional: Styling for individual buttons */
+    .categories button {
+        padding: 10px 20px;      /* Adds padding for better appearance */
+        font-size: 9px;         /* Adjust font size */
+        cursor: pointer;         /* Changes cursor on hover */
+        background-color: #f2f2f2; /* Light background for buttons */
+        border: 1px solid #ccc;  /* Adds a border to the button */
+        border-radius: 5px;      /* Optional: Rounds the button corners */
+    }
+
+    .categories button:hover {
+        background-color: #e0e0e0; /* Slightly darker background on hover */
+    }
+
+    .product-Cat { 
+        gap: 20px; 
+        padding: 20px;
+        width: 100%; 
+        border-radius: 8px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9; 
+    }
+
+    .product-Cat .product {
+        background-color: #fff;
+        padding: 15px;
         border: 1px solid #ddd;
         border-radius: 8px;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
