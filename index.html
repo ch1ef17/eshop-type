@@ -259,40 +259,59 @@
             totalPriceDisplay.textContent = `Total: $${totalPrice.toFixed(2)}`;
         }
 
-        // Function to attach click event to each product's cart icon
-        function attachCartIconEvents() {
-            const cartIcons = document.querySelectorAll(".cart-icon");
-            cartIcons.forEach(icon => {
-                icon.addEventListener("click", function() {
-                    const productDiv = icon.closest('.product');  // Get the closest product element
-                    
-                    // Use safe queries to check if elements exist
-                    const productNameElement = productDiv.querySelector('h3');
-                    const productPriceElement = productDiv.querySelector('p:nth-of-type(1)');  // Assuming the price is the first <p>
-                    const productCategoryElement = productDiv.querySelector('p:nth-of-type(2)');  // Assuming the category is the second <p>
-        
-                    // If any element is missing, log an error and return early
-                    if (!productNameElement || !productPriceElement || !productCategoryElement) {
-                        console.error('Missing product information:', productDiv);
-                        return;
-                    }
-        
-                    const productName = productNameElement.textContent;
-                    const productPrice = productPriceElement.textContent.replace('Price: $', '');
-                    const productCategory = productCategoryElement.textContent.replace('Category: ', '');
-        
-                    // Create a product object
-                    const product = {
-                        name: productName,
-                        price: parseFloat(productPrice),
-                        category: productCategory
-                    };
-        
-                    // Add the product to the cart
-                    addToCart(product);
-                });
-            });
-        }
+        // Event listener for clicks within the productList container
+        document.getElementById('productList').addEventListener('click', function(event) {
+            // Check if the clicked element has the 'cart-icon' class
+            if (event.target.classList.contains('cart-icon')) {
+                const productDiv = event.target.closest('.product'); // Find the closest product element
+
+                // Safely check if elements exist before querying their text content
+                const productNameElement = productDiv.querySelector('h3');
+                const productPriceElement = productDiv.querySelector('p:nth-of-type(1)'); // First <p> for price
+                const productCategoryElement = productDiv.querySelector('p:nth-of-type(2)'); // Second <p> for category
+
+                // Log an error and stop if elements are missing
+                if (!productNameElement || !productPriceElement || !productCategoryElement) {
+                    console.error('Missing product information:', productDiv);
+                    return;
+                }
+
+                const productName = productNameElement.textContent;
+                const productPrice = parseFloat(productPriceElement.textContent.replace('Price: $', ''));
+                const productCategory = productCategoryElement.textContent.replace('Category: ', '');
+
+                const product = {
+                    name: productName,
+                    price: productPrice,
+                    category: productCategory
+                };
+
+                addToCart(product); // Add product to cart
+            }
+        });
+
+        // Close dropdowns when clicking outside of them
+        document.addEventListener("click", function(event) {
+            const cartDropdown = document.getElementById("cartDropdown");
+            const dropDownMenu = document.getElementById("dropDownMenu");
+            const cartIcon = document.querySelector(".cart-icon-main");
+            const menuIcon = document.querySelector(".menu-icon");
+
+            // Check if the clicked target is outside of the cart dropdown or cart icon
+            if (!cartIcon.contains(event.target) && !cartDropdown.contains(event.target)) {
+                cartDropdown.style.display = "none";
+            }
+
+            // Check if the clicked target is outside of the menu dropdown or menu icon
+            if (!menuIcon.contains(event.target) && !dropDownMenu.contains(event.target)) {
+                dropDownMenu.style.display = "none";
+            }
+        });
+
+        // Prevent clicks inside the dropdown from closing the dropdown
+        document.getElementById("cartDropdown").addEventListener("click", function(event) {
+            event.stopPropagation();
+        });
 
         // Call this function to ensure the event listeners are set on page load
         document.addEventListener('DOMContentLoaded', attachCartIconEvents);
