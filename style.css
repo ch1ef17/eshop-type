@@ -452,6 +452,13 @@ nav {
         gap: 20px;
     }
 
+    .content-wrapper{
+        display: flex;
+        margin-right: 20px;
+        margin-left: 10px;
+        gap: 15px;
+    }
+
     .product {
         position: relative;
         width: 100%; /* Adjust product width */
