@@ -399,7 +399,7 @@ nav {
 
     /* Each nav item should be spaced horizontally */
     #NavItems li {
-        margin-right: 0px; /* Space between the items */
+        margin-right: 10px; /* Space between the items */
     }
 
     .navbar {
@@ -407,6 +407,7 @@ nav {
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        gap: 10px;
     }
 
     .logo {
@@ -426,9 +427,28 @@ nav {
         
     }
 
+    .search-bar input[type="text"] {
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+        outline: none;
+        width: 100%;
+        font-size: 11px;
+    }
+
+    .search-bar button {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
     .menu-icon {
-        width: 45px;
-        height: 45px;
+        width: 35px;
+        height: 35px;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -438,9 +458,25 @@ nav {
         transition: background-color 0.2s ease;
     }
 
+    .drop-down {
+        display: none; /* Hide the dropdown by default */
+        position: fixed; /* Position it relative to the screen */
+        right: 0; /* Position it on the left side of the screen */
+        top: 80px; /* Adjust this to position it under the menu icon */
+        width: 120px; /* Width for the square shape */
+        height: 200px; /* Height for the square shape */
+        background-color: #333;
+        color: white;
+        border-radius: 5px; /* Optional: rounds the corners slightly */
+        z-index: 10; /* Ensure it's above other content */
+        list-style: none; /* Prevent any list item styles */
+        padding: 0; /* Remove padding */
+        margin-right: 10px;
+    }
+
     .cart-icon-main {
-        width: 40px;  /* Set the size of the cart icon */
-        height: 40px; /* Same as width to keep it a square */
+        width: 33px;  /* Set the size of the cart icon */
+        height: 33px; /* Same as width to keep it a square */
         cursor: pointer; /* Show a pointer cursor when hovering over the icon */
         background-color: #f8f8f8; /* Background color for the icon */
         padding: 8px; /* Add some padding around the icon */
@@ -450,6 +486,41 @@ nav {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .cart-dropdown {
+        margin-top: 30px;
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 50px;  /* Adjust as needed */
+        right: 20px; /* Adjust position */
+        background-color: #535353;
+        color: white;
+        width: 200px;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 9;
+        list-style: none; /* Prevent any list item styles */
+        height: 85%;
+        display: flex;
+        overflow-y: hidden;
+    }
+
+    #cartItems {
+        flex-grow: 1; /* Allow the cart items to take available space */
+        margin-bottom: 10px; /* Add some space between the items and the button */
+        overflow-y: auto; /* Allow scrolling for the cart items */
+        max-height: calc(100% - 65px);
+    }
+
+    #totalPrice {
+        font-size: 16px;
+        font-weight: bold;
+        position: absolute;
+        bottom: 47px;
+        left: 13px;
+        color: rgb(255, 255, 255);
     }
 
     .filter-container {
