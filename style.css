@@ -459,6 +459,13 @@ nav {
         gap: 15px;
     }
 
+    .product-list {
+        width: 83%; /* Set the width of the product list container */
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
     .product {
         position: relative;
         width: 100%; /* Adjust product width */
