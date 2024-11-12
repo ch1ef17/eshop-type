@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eshop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <div class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="logo.png" alt="Logo">
+                    </a>
+                </div>
+                <!-- Search Bar -->
+                <form class="search-bar" onsubmit="return searchProducts(event)">
+                    <input type="text" id="searchQuery" name="query" placeholder="Search products..." required>
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+                <img src="shopcart.png" alt="Cart" class="cart-icon-main" onclick="toggleCartDropdown()">
+                <div class="cart-dropdown" id="cartDropdown" style="display: none;">
+                    <ul id="cartItems">
+                        <!-- Cart items will appear here -->
+                    </ul>
+                    <button onclick="clearCart()">Clear Cart</button>
+                    <span id="totalPrice">Total: $0.00</span> <!-- Total price display -->
+                </div>
+                <!-- Dropdown Menu -->
+                <img src="menu.png" class="menu-icon" onclick="menutoggle()" alt="Menu">
+                <div class="drop-down" id="dropDownMenu" style="display: none;">
+                    <ul id="dropItems">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="log.html">Log In</a></li>
+                        <li><a href="sign.html">Sign In</a></li>
+                        <li><a href="help.html">Help</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="container2">
+            <nav>
+                <ul id="NavItems">
+                    <li><a href="Categories.html">Categories</a></li>
+                    <li><a href="Discounts.html">Discounts</a></li>
+                    <li><a href="contacts.html">Contacts</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content (Products Section) -->
+    <div class="main">
+        <!-- Wrapper for both filter and product list containers -->
+        <div class="content-wrapper">
+            <!-- Filter Options (container3) -->
+            <button id="filterButton" class="filter-button" >Filters</button>
+            <div class="filter-container" id="filterContainer">
+                <div class="filter-options">
+                    <!-- Price Sorting -->
+                    <label for="sortPrice">Sort by Price:</label>
+                    <select id="sortPrice" onchange="sortTableByPrice()">
+                        <option value="">None</option>
+                        <option value="asc">Low to High</option>
+                        <option value="desc">High to Low</option>
+                    </select>
+                
+                    <!-- Category Filter -->
+                    <label for="categoryFilter">Choose Category:</label>
+                    <select id="categoryFilter" onchange="filterTableByCategory()">
+                        <option value="">All Categories</option>
+                        <option value="Category1">Category1</option>
+                        <option value="Category2">Category2</option>
+                        <option value="Category3">Category3</option>
+                    </select>
+                
+                    <!-- Checkbox Filters -->
+                    <label>Filter by Examples:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" value="Example1" onchange="filterTableByExamples()"> Example1</label>
+                        <label><input type="checkbox" value="Example2" onchange="filterTableByExamples()"> Example2</label>
+                        <label><input type="checkbox" value="Example3" onchange="filterTableByExamples()"> Example3</label>
+                        <label><input type="checkbox" value="Example4" onchange="filterTableByExamples()"> Example4</label>
+                        <label><input type="checkbox" value="Example5" onchange="filterTableByExamples()"> Example5</label>
+                        <label><input type="checkbox" value="Example6" onchange="filterTableByExamples()"> Example6</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product List (productList) -->
+            <div id="productList" class="product-list">
+                <!-- Products will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample products data
+        const products = [
+            { id: 1, name: "Product A", price: 100, category: "Category1", examples: ["Example1", "Example3"] },
+            { id: 2, name: "Product B", price: 200, category: "Category2", examples: ["Example2", "Example4"] },
+            { id: 3, name: "Product C", price: 150, category: "Category1", examples: ["Example1", "Example5"] },
+            { id: 4, name: "Product D", price: 50, category: "Category3", examples: ["Example3", "Example6"] },
+            { id: 5, name: "Product E", price: 30, category: "Category2", examples: ["Example2", "Example4"] },
+            { id: 6, name: "Product F", price: 80, category: "Category1", examples: ["Example1", "Example3"] }
+        ];
+
+        // Display products dynamically
+        function displayProducts(filteredProducts) {
+            const productList = document.getElementById('productList');
+            productList.innerHTML = ''; // Clear previous results
+            filteredProducts.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.classList.add('product');
+                productDiv.innerHTML = `
+                    <h3>${product.name}</h3>
+                    <p>Price: $${product.price}</p>
+                    <p>Category: ${product.category}</p>
+                    <img src="shopcart.png" alt="Add to Cart" class="cart-icon">
+                `;
+                productList.appendChild(productDiv);
+            });
+        }
+
+        // Function to search products
+        function searchProducts(event) {
+            event.preventDefault(); // Prevent form submission
+            const query = document.getElementById('searchQuery').value.toLowerCase(); // Get the query and make it lowercase
+        
+            // Filter products based on the search query (match by name or exact ID)
+            const filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(query) || product.id === parseInt(query)  // Match exactly the ID
+            );
+        
+            // Display the filtered products
+            displayProducts(filteredProducts);
+        }
+
+        // Sort products by price
+        function sortTableByPrice() {
+            const sortPrice = document.getElementById('sortPrice').value;
+            let sortedProducts = [...products]; // Clone the products array
+            if (sortPrice === 'asc') {
+                sortedProducts.sort((a, b) => a.price - b.price);
+            } else if (sortPrice === 'desc') {
+                sortedProducts.sort((a, b) => b.price - a.price);
+            }
+            displayProducts(sortedProducts);
+        }
+
+        // Filter products by category
+        function filterTableByCategory() {
+            const category = document.getElementById('categoryFilter').value;
+            const filteredProducts = category ? products.filter(p => p.category === category) : products;
+            displayProducts(filteredProducts);
+        }
+
+        // Filter products by examples (checkboxes)
+        function filterTableByExamples() {
+            const checkedExamples = [];
+            const checkboxes = document.querySelectorAll('.checkbox-group input:checked');
+            checkboxes.forEach(checkbox => checkedExamples.push(checkbox.value));
+            const filteredProducts = products.filter(p => {
+                return checkedExamples.every(example => p.examples.includes(example));
+            });
+            displayProducts(filteredProducts);
+        }
+
+        // Initial display of all products
+        displayProducts(products);
+
+        // Toggle function for the menu items
+        function menutoggle() {
+            const dropDown = document.getElementById("dropDownMenu");
+            dropDown.style.display = (dropDown.style.display === "none" || dropDown.style.display === "") ? "block" : "none";
+        }
+
+        // Declare the array that will hold the cart items
+        let cartItems = [];
+
+        // Function to toggle the cart dropdown visibility
+        function toggleCartDropdown() {
+            const cartDropdown = document.getElementById("cartDropdown");
+            // Toggle visibility
+            if (cartDropdown.style.display === "none" || cartDropdown.style.display === "") {
+                cartDropdown.style.display = "block";
+            } else {
+                cartDropdown.style.display = "none";
+            }
+        }
+
+        // Function to add a product to the cart
+        function addToCart(product) {
+            console.log('Adding product to cart:', product);  // Debugging line
+            
+            // Check if the product data exists and is correctly formatted
+            if (!product || !product.name || !product.price || !product.category) {
+                console.error('Invalid product data:', product);
+                return;
+            }
+
+            cartItems.push(product);
+            updateCartDropdown(); // Update the dropdown with new product and numbering
+        }
+
+        // Function to calculate the total price of the items in the cart
+        function calculateTotalPrice() {
+            return cartItems.reduce((total, item) => total + item.price, 0);
+        }
+
+        // Function to remove a product from the cart
+        function removeFromCart(index) {
+            // Remove the product at the specified index
+            cartItems.splice(index, 1);
+            
+            // Update the cart dropdown after removal
+            updateCartDropdown();
+        }
+
+        function clearCart() {
+            // Empty the cartItems array
+            cartItems = [];
+            
+            // Update the cart dropdown
+            updateCartDropdown();
+        }
+
+        // Function to update the cart dropdown with items and total price
+        function updateCartDropdown() {
+            const cartItemsList = document.getElementById("cartItems");
+            cartItemsList.innerHTML = ""; // Clear the dropdown
+
+            // Loop through each item in the cart and add it to the dropdown with numbering and remove button
+            cartItems.forEach((item, index) => {
+                const li = document.createElement("li");
+                
+                // Create product display with number, name, price, and the "X" button
+                li.innerHTML = `${index + 1}. ${item.name} - $${item.price} <span class="remove-item" onclick="removeFromCart(${index})">X</span>`;
+                cartItemsList.appendChild(li);
+            });
+
+            // If cart is empty, show a message
+            if (cartItems.length === 0) {
+                const li = document.createElement("li");
+                li.textContent = "Your cart is empty";
+                cartItemsList.appendChild(li);
+            }
+
+            // Update the total price next to the "Clear Cart" button
+            const totalPrice = calculateTotalPrice();
+            const totalPriceDisplay = document.getElementById("totalPrice");
+            totalPriceDisplay.textContent = `Total: $${totalPrice.toFixed(2)}`;
+        }
+
+        // Function to attach click event to each product's cart icon
+        function attachCartIconEvents() {
+            const cartIcons = document.querySelectorAll(".cart-icon");
+            cartIcons.forEach(icon => {
+                icon.addEventListener("click", function() {
+                    const productDiv = icon.closest('.product');  // Get the closest product element
+                    
+                    // Use safe queries to check if elements exist
+                    const productNameElement = productDiv.querySelector('h3');
+                    const productPriceElement = productDiv.querySelector('p:nth-of-type(1)');  // Assuming the price is the first <p>
+                    const productCategoryElement = productDiv.querySelector('p:nth-of-type(2)');  // Assuming the category is the second <p>
+        
+                    // If any element is missing, log an error and return early
+                    if (!productNameElement || !productPriceElement || !productCategoryElement) {
+                        console.error('Missing product information:', productDiv);
+                        return;
+                    }
+        
+                    const productName = productNameElement.textContent;
+                    const productPrice = productPriceElement.textContent.replace('Price: $', '');
+                    const productCategory = productCategoryElement.textContent.replace('Category: ', '');
+        
+                    // Create a product object
+                    const product = {
+                        name: productName,
+                        price: parseFloat(productPrice),
+                        category: productCategory
+                    };
+        
+                    // Add the product to the cart
+                    addToCart(product);
+                });
+            });
+        }
+
+        // Call this function to ensure the event listeners are set on page load
+        document.addEventListener('DOMContentLoaded', attachCartIconEvents);
+
+        // Close cart and menu when clicking outside of them
+        document.addEventListener("click", function(event) {
+            const cartDropdown = document.getElementById("cartDropdown");
+            const dropDownMenu = document.getElementById("dropDownMenu");
+            const cartIcon = document.querySelector(".cart-icon-main");
+            const menuIcon = document.querySelector(".menu-icon");  
+            // Close the cart if clicked outside the cart or the cart icon
+            if (!cartIcon.contains(event.target) && !cartDropdown.contains(event.target)) {
+                cartDropdown.style.display = "none";
+            }   
+            // Close the menu if clicked outside the menu or the menu icon
+            if (!menuIcon.contains(event.target) && !dropDownMenu.contains(event.target)) {
+                dropDownMenu.style.display = "none";
+            }
+        });
+
+    </script>
+
+</body>
+</html>

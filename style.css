@@ -1,0 +1,445 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container styling */
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px 20px;
+}
+
+/* Navbar layout */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 20px;
+}
+
+/* Logo on the left */
+.logo {
+    display: flex;
+    align-items: center;
+    max-width: 100px;
+    max-height: 100px;
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+/* Centered search bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 2;
+    max-width: 500px;
+    margin: 0 auto;
+    
+}
+
+.search-bar input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+}
+
+.search-bar button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Menu icon on the far right */
+.menu-icon {
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-radius: 50%;
+    background-color: #f8f8f8;
+    transition: background-color 0.2s ease;
+}
+
+.menu-icon:hover {
+    background-color: #007bff; /* Highlight color on hover */
+    color: white;
+}
+
+.container2 {
+    width: 100%;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+}
+
+/* Navigation links directly below the search bar */
+nav {
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#NavItems {
+    display: flex; /* Display items in a row */
+    justify-content: center; /* Center the navigation items horizontally */
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Ensure there's no margin that pushes the items down */
+}
+
+/* Each nav item should be spaced horizontally */
+#NavItems li {
+    margin-right: 20px; /* Space between the items */
+}
+
+/* Link style */
+#NavItems li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+/* Hover effect for links */
+#NavItems li a:hover {
+    color: #007bff;
+}
+
+/* Dropdown menu styling - Square shape */
+.drop-down {
+    display: none; /* Hide the dropdown by default */
+    position: fixed; /* Position it relative to the screen */
+    right: 0; /* Position it on the left side of the screen */
+    top: 80px; /* Adjust this to position it under the menu icon */
+    width: 180px; /* Width for the square shape */
+    height: 200px; /* Height for the square shape */
+    background-color: #333;
+    color: white;
+    border-radius: 5px; /* Optional: rounds the corners slightly */
+    z-index: 10; /* Ensure it's above other content */
+    list-style: none; /* Prevent any list item styles */
+    padding: 0; /* Remove padding */
+    margin-right: 10px;
+}
+
+.drop-down ul {
+    padding: 0;
+    margin: 0;
+    list-style: none; /* Ensure no bullets or dots */
+}
+
+.drop-down li {
+    padding: 0;
+    margin: 0;
+}
+
+/* Style for the menu items in the dropdown */
+.drop-down a {
+    color: white;
+    text-decoration: none;
+    margin-top: 15px;
+    padding: 5px 20px;
+    display: block;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    outline: none; /* Remove the outline (dots) on click */
+    border: none; /* Ensure no border */
+}
+
+.drop-down a:focus {
+    background-color: #444; /* Or any other visual cue */
+}
+
+.drop-down a:hover {
+    background-color: #444;
+}
+
+/* Show the dropdown menu when class "showDropDown" is added */
+.drop-down.showDropDown {
+    display: block;
+}
+
+.cart-icon-main {
+    width: 40px;  /* Set the size of the cart icon */
+    height: 40px; /* Same as width to keep it a square */
+    margin-right: 10px;
+    cursor: pointer; /* Show a pointer cursor when hovering over the icon */
+    background-color: #f8f8f8; /* Background color for the icon */
+    padding: 8px; /* Add some padding around the icon */
+    border-radius: 50%; /* Make the icon round */
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effects */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart-icon-main:hover {
+    background-color: #007bff; /* Change background color on hover */
+    transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+
+.cart-icon-main img {
+    width: 20px; /* Set the size of the cart image inside the icon */
+    height: 20px; /* Same as width to keep it proportional */
+    object-fit: contain; /* Make sure the image fits well inside the icon */
+}
+
+.cart-dropdown {
+    margin-top: 30px;
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 50px;  /* Adjust as needed */
+    right: 20px; /* Adjust position */
+    background-color: #535353;
+    color: white;
+    width: 250px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 9;
+    list-style: none; /* Prevent any list item styles */
+    height: 85%;
+    display: flex;
+    overflow-y: hidden;
+}
+
+
+
+#cartItems {
+    flex-grow: 1; /* Allow the cart items to take available space */
+    margin-bottom: 10px; /* Add some space between the items and the button */
+    overflow-y: auto; /* Allow scrolling for the cart items */
+    max-height: calc(100% - 40px);
+}
+
+.cart-dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-dropdown li {
+    margin: 10px 0;
+}
+
+.cart-dropdown button {
+    position: absolute; /* Position the button at the bottom */
+    bottom: 10px; /* 10px from the bottom */
+    left: 10px; /* 10px from the right */
+    background-color: #007bff; /* Button color */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.cart-dropdown button:hover {
+    background-color: #0056b3; /* Darker color on hover */
+}
+
+.remove-item {
+    color: #0065d1;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.remove-item:hover {
+    text-decoration: underline;
+}
+
+#totalPrice {
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 17px;
+    right: 20px;
+    color: rgb(255, 255, 255);
+}
+
+/* Filter Container (container3) */
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    width: 15%; /* Set the width of the filter container */
+    min-width: 140px;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Filter Options Styling */
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Filter Button (Initially Hidden) */
+.filter-button {
+    display: none; /* Hidden by default */
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.filter-button:hover {
+    background-color: #0056b3;
+}
+
+/* Checkbox Group Styling */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 3px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between checkbox and text */
+}
+
+.content-wrapper{
+    display: flex;
+    margin-right: 20px;
+    margin-left: 10px;
+    gap: 30px;
+}
+
+/* Product List Container */
+.product-list {
+    width: 83%; /* Set the width of the product list container */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Individual Product Styling */
+.product {
+    position: relative;
+    width: 100%; /* Adjust product width */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.product:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+.product h3 {
+    margin-bottom: 10px;
+}
+.product p {
+    margin: 5px 0;
+}
+.product .price {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.cart-icon{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 30px; /* Slightly larger for better visibility */
+    cursor: pointer;
+    background-color: #f8f8f8;
+    padding: 6px;
+    border-radius: 50%;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease;
+}
+.cart-icon:hover {
+    background-color: #007bff; /* Highlight color on hover */
+    color: white;
+}
+
+@media (max-width: 750px){
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        max-width: 100px;
+        max-height: 100px;
+    }
+    
+    /* Centered search bar */
+    .search-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 2;
+        max-width: 500px;
+        
+    }
+
+    .menu-icon {
+        width: 45px;
+        height: 45px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        border-radius: 50%;
+        background-color: #f8f8f8;
+        transition: background-color 0.2s ease;
+    }
+
+    .cart-icon-main {
+        width: 40px;  /* Set the size of the cart icon */
+        height: 40px; /* Same as width to keep it a square */
+        cursor: pointer; /* Show a pointer cursor when hovering over the icon */
+        background-color: #f8f8f8; /* Background color for the icon */
+        padding: 8px; /* Add some padding around the icon */
+        border-radius: 50%; /* Make the icon round */
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+        transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effects */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .product {
+        position: relative;
+        width: 100%; /* Adjust product width */
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+}
