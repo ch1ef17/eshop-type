@@ -438,11 +438,18 @@ nav {
         display: flex;
         flex-direction: column;
         width: 15%; /* Set the width of the filter container */
-        min-width: 50px;
-        padding: 20px;
+        min-width: 120px;
+        padding-top: 20px;
+        padding-left: 5px;
         border-right: 1px solid #ccc;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
+    }
+
+    .filter-options {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 
     .product {
